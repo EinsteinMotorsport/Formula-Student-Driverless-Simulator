@@ -455,16 +455,16 @@ sensor_msgs::msg::NavSatFix AirsimROSWrapper::get_gps_sensor_msg_from_airsim_geo
     return gps_msg;
 }
 
-void AirsimROSWrapper::car_control_cb(const fs_msgs::msg::ControlCommand& msg)
+void AirsimROSWrapper::car_control_cb(const fs_msgs::msg::ControlCommand::SharedPtr msg)
 {
     ros_bridge::ROSMsgCounter counter(&control_cmd_sub_statistics);
 
     // Only allow positive braking and throttle commands to be passed through
     CarApiBase::CarControls controls;
-    controls.throttle = msg.throttle < 0.0 ? 0.0 : msg.throttle;
-    controls.steering = msg.steering;
-    controls.brake = msg.brake < 0.0 ? 0.0 : msg.brake;
-    rclcpp::Time time = msg.header.stamp;
+    controls.throttle = msg->throttle < 0.0 ? 0.0 : msg->throttle;
+    controls.steering = msg->steering;
+    controls.brake = msg->brake < 0.0 ? 0.0 : msg->brake;
+    rclcpp::Time time = msg->header.stamp;
 
     {
         ros_bridge::Timer timer(&setCarControlsStatistics);
@@ -916,7 +916,7 @@ void AirsimROSWrapper::go_signal_timer_cb()
     go_signal_pub_->publish(go_signal_msg);
 }
 
-void AirsimROSWrapper::finished_signal_cb(const fs_msgs::msg::FinishedSignal& msg)
+void AirsimROSWrapper::finished_signal_cb(const fs_msgs::msg::FinishedSignal::SharedPtr msg)
 {
     // Get access token
     std::string operator_token(std::getenv("OPERATOR_TOKEN"));

@@ -164,7 +164,7 @@ private:
     void gss_timer_cb();
     void wheel_states_timer_cb();
     void statictf_cb();
-    void car_control_cb(const fs_msgs::msg::ControlCommand& msg);
+    void car_control_cb(const fs_msgs::msg::ControlCommand::SharedPtr msg);
     void lidar_timer_cb(const std::string& camera_name, const int lidar_index);
     void statistics_timer_cb();
     void go_signal_timer_cb();
@@ -172,7 +172,7 @@ private:
 	void clock_timer_cb();
 
     /// ROS subscriber callbacks
-    void finished_signal_cb(const fs_msgs::msg::FinishedSignal& msg);
+    void finished_signal_cb(const fs_msgs::msg::FinishedSignal::SharedPtr msg);
 
     rclcpp::Time make_ts(uint64_t unreal_ts) const;
     // void set_zero_vel_cmd();
