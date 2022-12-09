@@ -33,13 +33,13 @@ pkg_check_modules( libcurl REQUIRED libcurl )
 
 ament_auto_add_library(airsim_ros src/airsim_ros_wrapper.cpp)
 target_link_libraries(airsim_ros yaml-cpp AirLib)
-#[[
+
 ament_auto_add_executable(fsds_ros2_bridge src/fsds_ros2_bridge.cpp)
 target_link_libraries(fsds_ros2_bridge airsim_ros AirLib ${libcurl_LIBRARIES})
 
 ament_auto_add_executable(fsds_ros2_bridge_camera src/fsds_ros2_bridge_camera.cpp)
 target_link_libraries(fsds_ros2_bridge_camera AirLib ${OpenCV_LIBS})
-]]
+
 # install(TARGETS 
 #     #list of shared libraries
 #     airsim_ros
